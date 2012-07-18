@@ -1,0 +1,8 @@
+name: Oregen
+load: startup
+main: com.nitr0uk.www.oregen.OreGen
+version: 0.1A
+commands:
+    Oregen:
+        description: Regenerate minecraft resources in existing chunks
+        usage: \<command> regenerate <worldname>
