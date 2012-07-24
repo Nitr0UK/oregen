@@ -106,16 +106,6 @@ namespace NBToolkit
 
                 int xStart, yStart, zStart, xEnd, yEnd, zEnd;
 
-                if (_mathFix) {
-                    xStart = (int)Math.Floor(xPos - fuzzXZ / 2.0D);
-                    yStart = (int)Math.Floor(yPos - fuzzY / 2.0D);
-                    zStart = (int)Math.Floor(zPos - fuzzXZ / 2.0D);
-
-                    xEnd = (int)Math.Floor(xPos + fuzzXZ / 2.0D);
-                    yEnd = (int)Math.Floor(yPos + fuzzY / 2.0D);
-                    zEnd = (int)Math.Floor(zPos + fuzzXZ / 2.0D);
-                }
-                else {
                     xStart = (int)(xPos - fuzzXZ / 2.0D);
                     yStart = (int)(yPos - fuzzY / 2.0D);
                     zStart = (int)(zPos - fuzzXZ / 2.0D);
@@ -123,7 +113,7 @@ namespace NBToolkit
                     xEnd = (int)(xPos + fuzzXZ / 2.0D);
                     yEnd = (int)(yPos + fuzzY / 2.0D);
                     zEnd = (int)(zPos + fuzzXZ / 2.0D);
-                }
+                
 
                 for (int ix = xStart; ix <= xEnd; ix++) {
                     double xThresh = (ix + 0.5D - xPos) / (fuzzXZ / 2.0D);
