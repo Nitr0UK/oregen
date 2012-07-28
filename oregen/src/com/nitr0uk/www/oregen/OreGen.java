@@ -40,42 +40,56 @@ public class OreGen extends JavaPlugin{
 			Player player = (Player) sender;
 			Location location = player.getLocation();
 			Chunk chunk = location.getChunk();
+			Location startOfChunkLocation = chunk.getBlock(0, 64, 0).getLocation();
 			sender.sendMessage("Current location is: X: " + location.getBlockX() + " Y: "
 					+ location.getBlockY() + " Z: " + location.getBlockZ() + " Current chunk is: " + chunk.toString());
+			sender.sendMessage("Start of chunk (by chunk * 16 is X: )" + chunk.getX() * 16 + " Z: " + chunk.getZ() * 16 
+					+ " By chunk.getBlock: X: " + startOfChunkLocation.getX() + " Z: " + startOfChunkLocation.getZ());
 			
-		//arguments should be a list of blocks or block IDs
-		if(args.length >= 1)
-		{
-			sender.sendMessage(args.length + " arguments given! Parsing integers as BlockID/s");
-			for (String argument : args)
+			//arguments should be a list of blocks or block IDs
+			if(args.length >= 1)
 			{
-				Integer blockID = Integer.parseInt(argument);
-				if (blockID != null)
+				if(args[0].equals("generate"))
 				{
-					int blockCount = countBlocksInChunk(chunk, blockID);
-					sender.sendMessage("Block count for block ID " + blockID + ", " + blockCount);
+					new IndustrialCraftOreGeneration().generateOre(chunk);
+					sender.sendMessage("Generated ore in this chunk successfully!");
 				}
 				else
 				{
-					sender.sendMessage("Block ID " + argument + " not a valid block ID, skipping");
+					sender.sendMessage(args.length + " arguments given! Parsing integers as BlockID/s");
+					for (String argument : args)
+					{
+						Integer blockID = Integer.parseInt(argument);
+						if (blockID != null)
+						{
+							int blockCount = countBlocksInChunk(chunk, blockID);
+
+							sender.sendMessage("Block count for block ID " + blockID + ", " + blockCount);
+						}
+						else
+						{
+							sender.sendMessage("Block ID " + argument + " not a valid block ID, skipping");
+						}
+					}
 				}
 			}
-		}
 		}
 		else
 		{
 			sender.sendMessage("This command cannot be run from the console");
 		}
-//		System.out.println("Command Executed!");
-//		World world = getServer().getWorld("world");
-//		Chunk chunk = world.getChunkAt(0,0);
-//		System.out.println(chunk.getX());
-//		System.out.println(chunk.getZ());
-//		chunk = world.getChunkAt(0,1);
-//		System.out.println(chunk.getX());
-//		System.out.println(chunk.getZ());
-//		Block block = chunk.getBlock(22, 0, 0);
-//		System.out.println("Block ID: " + block.getTypeId());
+		//		System.out.println("Command Executed!");
+		//		World world = getServer().getWorld("world");
+		//		Chunk chunk = world.getChunkAt(0,0);
+		//		System.out.println(chunk.getX());
+		//		System.out.println(chunk.getZ());
+		//		chunk = world.getChunkAt(0,1);
+		//		System.out.println(chunk.getX());
+		//		System.out.println(chunk.getZ());
+		//		Block block = chunk.getBlock(22, 0, 0);
+		//		System.out.println("Block ID: " + block.getTypeId());
+
+
 		return true;
 	}
 	/**
@@ -93,7 +107,6 @@ public class OreGen extends JavaPlugin{
 	private int countBlocksInChunk(Chunk chunk, int blockID)
 	{
 		int blockCount = 0;
-		
 		for(int x = 0; x<16; ++x)
 		{
 			for(int z = 0; z<16; ++z)
