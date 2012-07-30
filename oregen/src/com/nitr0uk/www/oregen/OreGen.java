@@ -49,7 +49,7 @@ public class OreGen extends JavaPlugin{
 				if(args[0].equals("generate"))
 				{
 					
-					new IndustrialCraftOreGeneration().generateOre(chunk);
+					new BlockGeneration().generateOre(chunk);
 					sender.sendMessage("Generated ore in this chunk successfully!");
 				}
 				else
@@ -94,7 +94,7 @@ public class OreGen extends JavaPlugin{
 	private void generateWorld(World world)
 	{
 		//generate the whole world with ore!
-		new IndustrialCraftOreGeneration().generateOre(world.getChunkAt(0, 0));
+		new BlockGeneration().generateOre(world.getChunkAt(0, 0));
 		
 	}
 	/**
