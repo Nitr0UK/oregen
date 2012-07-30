@@ -9,13 +9,15 @@ public class OreGeneratorAlgorithm {
 
 	private int blockID = 0;
 	private int size = 0;
+	private int metadata = 0;
 	private World world;
-	public final int STONE_ID = 1;
+	public final static int STONE_ID = 1;
 
-	public OreGeneratorAlgorithm(World world, int blockID, int size) {
+	public OreGeneratorAlgorithm(World world, int blockID, byte metadata, int size) {
 		this.world = world;
 		this.blockID = blockID;
 		this.size = size;
+		this.metadata = metadata;
 	}
 
 	public boolean generate(Random rand, int x, int y, int z) {
@@ -60,6 +62,7 @@ public class OreGeneratorAlgorithm {
 									Block block = world.getBlockAt(ix, iy, iz);
 									if (block != null && block.getTypeId() == STONE_ID) {
 										block.setTypeId(blockID);
+										block.setData(Byte.parseByte(String.valueOf(metadata)));
 									}
 								}
 							}

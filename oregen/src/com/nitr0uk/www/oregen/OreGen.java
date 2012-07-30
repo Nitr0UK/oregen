@@ -40,17 +40,15 @@ public class OreGen extends JavaPlugin{
 			Player player = (Player) sender;
 			Location location = player.getLocation();
 			Chunk chunk = location.getChunk();
-			Location startOfChunkLocation = chunk.getBlock(0, 64, 0).getLocation();
 			sender.sendMessage("Current location is: X: " + location.getBlockX() + " Y: "
 					+ location.getBlockY() + " Z: " + location.getBlockZ() + " Current chunk is: " + chunk.toString());
-			sender.sendMessage("Start of chunk (by chunk * 16 is X: )" + chunk.getX() * 16 + " Z: " + chunk.getZ() * 16 
-					+ " By chunk.getBlock: X: " + startOfChunkLocation.getX() + " Z: " + startOfChunkLocation.getZ());
 			
 			//arguments should be a list of blocks or block IDs
 			if(args.length >= 1)
 			{
 				if(args[0].equals("generate"))
 				{
+					
 					new IndustrialCraftOreGeneration().generateOre(chunk);
 					sender.sendMessage("Generated ore in this chunk successfully!");
 				}
@@ -91,6 +89,13 @@ public class OreGen extends JavaPlugin{
 
 
 		return true;
+	}
+	
+	private void generateWorld(World world)
+	{
+		//generate the whole world with ore!
+		new IndustrialCraftOreGeneration().generateOre(world.getChunkAt(0, 0));
+		
 	}
 	/**
 	 * Count a specific number of chunks starting from the given location
