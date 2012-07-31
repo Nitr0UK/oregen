@@ -1,5 +1,6 @@
 package com.nitr0uk.www.oregen;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -48,9 +49,8 @@ public class OreGen extends JavaPlugin{
 			{
 				if(args[0].equals("generate"))
 				{
-					
-					new BlockGeneration().generateOre(chunk);
-					sender.sendMessage("Generated ore in this chunk successfully!");
+					generateWorld(player.getWorld());
+					sender.sendMessage("Generated ore in world successfully!");
 				}
 				else
 				{
@@ -60,7 +60,7 @@ public class OreGen extends JavaPlugin{
 						Integer blockID = Integer.parseInt(argument);
 						if (blockID != null)
 						{
-							int blockCount = countBlocksInChunk(chunk, blockID);
+							int blockCount = WorldApplier.countBlocksInChunk(chunk, blockID);
 
 							sender.sendMessage("Block count for block ID " + blockID + ", " + blockCount);
 						}
@@ -93,41 +93,10 @@ public class OreGen extends JavaPlugin{
 	
 	private void generateWorld(World world)
 	{
-		//generate the whole world with ore!
-		new BlockGeneration().generateOre(world.getChunkAt(0, 0));
-		
+		WorldApplier worldApplier = new WorldApplier(world, 10, -250, 250, -250, 250);
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, worldApplier, 0, 1);
 	}
-	/**
-	 * Count a specific number of chunks starting from the given location
-	 * Chunks are counted in a clockwise spiral pattern starting from the
-	 * center
-	 * @param location
-	 * @param numberOfChunks
-	 * @return
-	 */
-	private int countChunks(Location location, int numberOfChunks)
-	{
-		return 0;
-	}
-	private int countBlocksInChunk(Chunk chunk, int blockID)
-	{
-		int blockCount = 0;
-		for(int x = 0; x<16; ++x)
-		{
-			for(int z = 0; z<16; ++z)
-			{
-				for(int y = 0; y<256; ++y)
-				{
-					if (chunk.getBlock(x, y, z).getTypeId() == blockID)
-					{
-						++blockCount;
-					}
-				}
-			}
-		}
-		
-		return blockCount;
-	}
+	
 	public static Configuration getConfiguration() {
 		return configuration;
 	}

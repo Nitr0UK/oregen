@@ -165,6 +165,7 @@ public class GenOil {
 						|| world.getBlockAt(x, y, z).getTypeId() == Material.STATIONARY_WATER.getId() || isOil(world, x, y, z)) {
 
 					world.getBlockAt(x, y, z).setTypeId(OIL_STILL_ID);
+					System.out.println("Generated Oil Block!!");
 				} else {
 					world.getBlockAt(x, y, z).setTypeId(0);
 				}

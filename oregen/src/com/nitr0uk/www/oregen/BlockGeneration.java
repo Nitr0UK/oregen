@@ -18,7 +18,7 @@ public class BlockGeneration {
 	public final static byte TUNGSTEN_ORE_METADATA = 6;
 	public final static byte NIKOLITE_ORE_METADATA = 7;
 	
-	public void generateOre(Chunk chunk) 
+	public static void generateOre(Chunk chunk) 
 	{
 		int chunkX = (chunk.getX() * 16);
 		int chunkZ = (chunk.getZ() * 16);
